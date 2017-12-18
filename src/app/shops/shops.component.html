@@ -8,7 +8,7 @@
               
               <img src="{{shop.picture}}" width="100%" *ngIf="shop.picture">
               <button class="btn btn-primary" (click)="like(shop)">like</button>
-              <button class="btn btn-danger" >dislike</button>
+              <button class="btn btn-danger" (click)="dislike(shop)">dislike</button>
             </div>
         
     </div>
