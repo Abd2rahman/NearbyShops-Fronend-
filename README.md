@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## How to run 
 
-* Make sure you are running the <a href="https://github.com/Abd2rahman/NearbyShops-Backend">REST API</a> on ** port 8089 **
+* Make sure you are running the <a href="https://github.com/Abd2rahman/NearbyShops-Backend">REST API</a> on **port 8089**
 * Clone this repository 
 * Install package: ``` npm install ```
 * Start server: ``` npm start ```
