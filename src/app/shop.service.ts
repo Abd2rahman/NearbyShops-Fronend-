@@ -37,5 +37,24 @@ export class ShopService {
         });
     }
 
+    addLikedShop(shop: Shop) : Observable<Shop>{
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post('api/likedShop',shop,options).map(res => {
+            return res.json();
+        });
+    }
+
+    getPreferredShops() : Observable<Shop[]>{
+        return this.http.get('api/likedShop').map(res =>{
+            return res.json();
+        });
+    }
+
+    deletelikedShop(id:string): Observable<any>{
+        const url = `api/likedShop/${id}`;
+        return this.http.delete(url);
+    }
     
 }

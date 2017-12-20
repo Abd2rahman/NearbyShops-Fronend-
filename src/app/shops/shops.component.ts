@@ -30,6 +30,9 @@ export class ShopsComponent implements OnInit {
 
   like(shop : Shop): void{
     this.nearbyShops = this.nearbyShops.filter(h => h !== shop);
+    this.shopService.addLikedShop(shop).subscribe(res=>{
+      this._shop=res;
+    });
   }
 
   dislike(shop : Shop): void{
@@ -40,7 +43,7 @@ export class ShopsComponent implements OnInit {
   }
 
   refreshData(): void{
-    this.timer=Observable.timer(50000).first().subscribe(() => this.getShops());
+    this.timer=Observable.timer(5000).first().subscribe(() => this.getShops());
   }
   
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Shop } from "../shop";
 import { ShopService } from "../shop.service";
+import { Observable } from 'rxjs/Observable';
 
 @Component ({
    selector: 'preferredShops',
@@ -9,14 +10,29 @@ import { ShopService } from "../shop.service";
 })
 export class PreferredShopsComponent implements OnInit {
   preferredShops : Shop[];
+  timer : any;
 
   constructor(private shopService: ShopService){}
 
   ngOnInit(){
-     this.shopService.getShops().subscribe(res=>{
+    this.getPreferredShops();
+  }
+
+  getPreferredShops(){
+    this.shopService.getPreferredShops().subscribe(res=>{
       this.preferredShops=res;
     }
     ); 
+    this.refreshData();
+  }
+
+  refreshData(): void{
+    this.timer=Observable.timer(5000).first().subscribe(() => this.getPreferredShops());
+  }
+
+  remove(shop:Shop){
+    this.preferredShops=this.preferredShops.filter(h => h !== shop);
+    this.shopService.deletelikedShop(shop.id).subscribe();
   }
 
   
