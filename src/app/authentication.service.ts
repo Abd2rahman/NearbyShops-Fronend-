@@ -34,4 +34,14 @@ export class AuthenticationService{
         }
         return false;
     }
+
+    getUser(){
+        var currentUser=JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser.username;
+    }
+
+    getToken(){
+        var currentUser=JSON.parse(localStorage.getItem('currentUser'));
+        return currentUser.token;
+    }
 }

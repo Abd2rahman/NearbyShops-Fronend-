@@ -7,30 +7,41 @@ import 'rxjs/Rx';
 import { Observable } from "rxjs";
 import { Shop } from "./shop";
 import { retry } from "rxjs/operators/retry";
+import { AuthenticationService } from "./authentication.service";
 
 
 
 @Injectable()
-export class ShopService {
+export class ShopService { 
 
-    constructor(private http:Http){}
+    constructor(private http:Http,private authenticationService:AuthenticationService){
+        
+    }
 
     getShops() : Observable<Shop[]>{
-        return this.http.get('api/shops').map(res =>{
+
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
+        
+        return this.http.get('api/shops',options).map(res =>{
             return res.json();
         });
     }
 
     getShopsByDistance() : Observable<Shop[]>{
-        return this.http.get('api/shopsByDistance').map(res =>{
+
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
+        
+        return this.http.get('api/shopsByDistance',options).map(res =>{
             return res.json();
         });
     }
 
     create(shop: Shop) : Observable<Shop>{
 
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
 
         return this.http.post('api/dislikedShop',shop,options).map(res => {
             return res.json();
@@ -38,8 +49,9 @@ export class ShopService {
     }
 
     addLikedShop(shop: Shop) : Observable<Shop>{
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
 
         return this.http.post('api/likedShop',shop,options).map(res => {
             return res.json();
@@ -47,14 +59,22 @@ export class ShopService {
     }
 
     getPreferredShops() : Observable<Shop[]>{
-        return this.http.get('api/likedShop').map(res =>{
+
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
+
+        return this.http.get('api/likedShop',options).map(res =>{
             return res.json();
         });
     }
 
     deletelikedShop(id:string): Observable<any>{
+
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer ' + this.authenticationService.getToken() });
+        let options=new RequestOptions({ headers: headers });
+
         const url = `api/likedShop/${id}`;
-        return this.http.delete(url);
+        return this.http.delete(url,options);
     }
     
 }
