@@ -24,6 +24,18 @@ export class AuthenticationService{
         );
     }
 
+    register(username:string,password:string):Observable<boolean>{
+
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post('api/sign-up',JSON.stringify({username: username, password: password}),options).map(
+            (res:Response)=>{
+                return res.json();
+            }
+        );
+    }
+
     logout(): void {
         localStorage.removeItem('currentUser');
     }

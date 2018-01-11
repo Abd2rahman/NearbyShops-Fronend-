@@ -1,19 +1,39 @@
 <div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-        </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary">Login</button>
-        </div>
-        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-    </form>
+    <h2> <button (click)="signIn(true)" class="btn btn-primary">Login</button> | <button (click)="signIn(false)" class="btn btn-success">Register</button></h2>
+    <div *ngIf="signin">
+        <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" placeholder="Username" required />
+                <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" placeholder="Password" required />
+                <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">LOG IN</button>
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </form>
+    </div>
+    <div *ngIf="!signin">
+        <form name="form" (ngSubmit)="f1.form.valid && register()" #f1="ngForm" novalidate>
+            <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && !rUsername.valid }">
+                <label for="rUsername">Username</label>
+                <input type="text" class="form-control" name="rUsername" [(ngModel)]="registerModel.rUsername" #rUsername="ngModel" required />
+                <div *ngIf="f1.submitted && !rUsername.valid" class="help-block">Username is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f1.submitted && !rPassword.valid }">
+                <label for="rPassword">Password</label>
+                <input type="password" class="form-control" name="rPassword" [(ngModel)]="registerModel.rPassword" #rPassword="ngModel" required />
+                <div *ngIf="f1.submitted && !rPassword.valid" class="help-block">Password is required</div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">REGISTER NOW</button>
+            </div>
+            <div *ngIf="registerError" class="alert alert-danger">{{registerError}}</div>
+        </form>
+    </div>
 </div>
